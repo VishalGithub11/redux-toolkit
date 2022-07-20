@@ -6,8 +6,6 @@ export const getCount = (state) =>  state.counterReducer.count
 
 
 export const getSquare = createSelector([getCount], (a) => {
-    // do something with a, b, and c, and return a result
-    console.log('a',a);
     return a*a
   })
 
