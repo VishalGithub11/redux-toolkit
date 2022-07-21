@@ -1,8 +1,10 @@
 import React , {useState} from 'react'
 import { useEffect } from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editEmpl } from './slice/EditEmployeeSlice';
+import {EmployeeEditedData} from './selector/EditEmployeeSelector'
+
 
 export const EditEmployee = () => {
 
@@ -14,13 +16,23 @@ export const EditEmployee = () => {
 
     let id = item?.id
 
+    const {list_new, statusEdit} = useSelector(EmployeeEditedData)
+  const [isNavigate, setNavigate] = useState(false)
+
     useEffect(()=>{
-        if(!item){
+        if(!item ){
             navigate('/all_employee')
         }
     }, [item])
 
+    useEffect(()=>{
+      if(statusEdit == 'success'){
+        navigate('/all_employee')
+      }
+    },[statusEdit])
+
     const [formData, setFormData] = useState({
+        id: item?.id,
         name: item?.name,
         email: item?.email,
         username: item?.username,
@@ -34,12 +46,9 @@ export const EditEmployee = () => {
         let value = e.target.value
     setFormData({...formData, [name]: value})
     }
-
-    console.log('item', formData);
     
     const handleSubmit = (e) =>{
         e.preventDefault()
-
         dispatch(editEmpl({id, formData}))
     }
 

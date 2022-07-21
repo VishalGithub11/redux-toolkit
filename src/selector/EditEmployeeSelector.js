@@ -10,23 +10,30 @@ export const fetchError = (state)=> state.EditEmployeeSlice.error
 
 export const editedData  = (state) => state.EditEmployeeSlice.emp
 
-const editedData = ()=>{
-    getListOfEmployee.map((item)=>{
-        if(item.name === editedData.name){
-            item.name = editedData.name;
-            item.email = editedData.email;
-            item.username = editedData.username;
-            item.phone = editedData.phone
+export const statusEdit = (state) => state.EditEmployeeSlice.status
+
+
+const updatedList = createSelector([editedData, getListOfEmployee],(a,b)=>{
+    let arr = []
+    for(let x=0; x<b.length; x++){
+        let new_obj = {...b[x]}
+        if(b[x].id == a.id){
+            new_obj.name = a.name
+                new_obj.email = a.email
+                new_obj.username = a.username
+                new_obj.phone = a.phone
+                arr.push(new_obj)
+        }else{
+            arr.push(b[x])
         }
-        return (
-            item
-        )
-    })
-}
+    }
+    return arr
 
+} )
 
-export const EmployeeData = createStructuredSelector({
-    list : editedData,
+export const EmployeeEditedData = createStructuredSelector({
+    list_new : updatedList,
     loading: loading,
-    error: fetchError
+    error: fetchError,
+    statusEdit
   })

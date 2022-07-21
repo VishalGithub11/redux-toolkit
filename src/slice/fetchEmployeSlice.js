@@ -12,6 +12,13 @@ export const fetchEmployeSlice = createSlice({
         error: '',
         emp: []
     },
+
+
+    reducers:{
+        updateEmployee:(state, action)=>{
+            state.emp = action.payload
+        }
+    },
     extraReducers:{
         [fetchEmpl.pending]:(state, {payload})=>{
             state.loading = true
@@ -29,6 +36,6 @@ export const fetchEmployeSlice = createSlice({
 })
 
 
-// export const {} = fetchEmployeSlice.actions
+export const {updateEmployee} = fetchEmployeSlice.actions
 
 export default fetchEmployeSlice.reducer

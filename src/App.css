@@ -54,3 +54,13 @@ footer {
   background-image: linear-gradient(45deg, #41D1FF, #BD34FE);
   text-align: center;
 }
+
+.spinn{
+  /* flex: 1; */position: absolute;
+  top: -1;
+  left: -1;
+  background-color: rgba(166, 114, 114, 0.484);
+   align-items: center;
+  width: 100%;
+  height: 100%;
+}
